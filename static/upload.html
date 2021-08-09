@@ -1,0 +1,26 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <!--Usage of Bootstrap 5-->
+    <!--Source: https://getbootstrap.com/docs/5.0/getting-started/introduction/-->
+    <!--Usage of jquery-->
+    <!--Source: https://api.jquery.com/-->
+    <!--Example: https://www.codegrepper.com/code-examples/javascript/jquery+3.3.1+document+ready-->
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+  </head>
+  <body>
+    <!--HTML5 Post method: https://developer.mozilla.org/en-US/docs/Web/HTML/Element/form-->
+    <!--Source: https://stackoverflow.com/questions/4526273/what-does-enctype-multipart-form-data-mean-->
+    <form
+      action=" http://127.0.0.1:5000/upload"
+      enctype="multipart/form-data"
+      method="POST"
+    >
+      <input type="file" name="file" />
+      <input type="submit" value="upload" />
+    </form>
+  </body>
+</html>

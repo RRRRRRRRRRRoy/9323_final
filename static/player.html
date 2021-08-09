@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <!--Usage of Bootstrap 5-->
+    <!--Source: https://getbootstrap.com/docs/5.0/getting-started/introduction/-->
+    <!--Usage of jquery-->
+    <!--Source: https://api.jquery.com/-->
+    <!--Example: https://www.codegrepper.com/code-examples/javascript/jquery+3.3.1+document+ready-->
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link href="bootstrap-5.0.2-dist/css/bootstrap.min.css" rel="stylesheet" >
+    <link href="bootstrap-5.0.2-dist/css/bootstrap-grid.css" rel="stylesheet" >
+    <link href="css/personal.css" rel="stylesheet" ></link>
+    <script src="js/jquery.min.js"></script>
+    <script src="bootstrap-5.0.2-dist/js/bootstrap.min.js"></script>
+    <script src="js/API.js"></script>
+    <title>Online Session</title>
+  </head>
+
+  <body style="background-color: black">
+    
+    <!-- The play -->
+    <div height="80%" style="margin: 3%; text-align: center">
+      <video id="VideoPlayer" width="80%" autoplay="autoplay" controls>
+        <source src="test66.mp4" type="video/mp4" />
+        Current Browser Does not support Video tags
+      </video>
+    </div>
+    
+    <!-- change the screen -->
+    <!-- How to satisfied different browser, checking code in the following source-->
+    <!-- SOurce: https://stackoverflow.com/questions/61229927/document-documentelement-msrequestfullscreen-returns-undefined-->
+    <script type="text/javascript">
+      function requestFullscreen(element) {
+        if (element.requestFullscreen) {
+          element.requestFullscreen();
+        } else if (element.webkitRequestFullscreen) {
+          // to satisfied Chrome Safari 
+          element.webkitRequestFullscreen();
+        } else if (element.mozRequestFullScreen) {
+          // to satisfied the firefox
+          element.mozRequestFullScreen();
+        } else if (element.msRequestFullscreen) {
+          // to satisfied IE/Edge
+          element.msRequestFullscreen();
+        }
+      }
+      $(function () {
+        // getting the elementID in the player part
+        let video = document.getElementById("VideoPlayer");
+        // getting the video location
+        let video_location = window.location();
+        // getting the href of the link
+        let video_link = video_location.href();
+        // getting the src location
+        video.src = video_link.split("?")[1];
+        video.play();
+      });
+    </script>
+  </body>
+</html>

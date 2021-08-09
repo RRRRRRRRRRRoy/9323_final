@@ -1,0 +1,256 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <!--Usage of Bootstrap 5-->
+    <!--Source: https://getbootstrap.com/docs/5.0/getting-started/introduction/-->
+    <!--Usage of jquery-->
+    <!--Source: https://api.jquery.com/-->
+    <!--Example: https://www.codegrepper.com/code-examples/javascript/jquery+3.3.1+document+ready-->
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>video Search</title>
+    <link href="bootstrap-5.0.2-dist/css/bootstrap.min.css" rel="stylesheet" >
+    <link href="bootstrap-5.0.2-dist/css/bootstrap-grid.css" rel="stylesheet" >
+    <link href="css/group.css" rel="stylesheet" ></link>
+    <script src="js/jquery.min.js"></script>
+    <script src="js/API.js"></script>
+    <!-- This part of style is different from Bootstrap5 provided -->
+    <style>
+        
+        .video-content .video-list .video-item {
+            width: 245px;
+            height: 180px;
+            padding: 20px;
+            margin: 5px;
+            box-shadow: 0 1px 8px rgb(0 0 0 / 6%);
+            border: 0px solid #dbdbdb;
+            cursor: pointer;
+            border-radius: 5px;
+        }
+        
+        .video-content .video-list .video-item:hover{
+            background-color: #ffffff;
+            box-shadow: 0 13px 39px rgb(0 0 0 / 10%);
+        }
+    </style>
+</head>
+<body>
+    <!-- This is to set the nav bar as other pages-->
+    <nav class="search-nav" style="background: #ffffffe3;">
+        <div class="container nav-content">
+            <div class="row">
+                <!-- this includes the hyper link icon-->
+                <div class="col-2">
+                    <div class="icon-logo">
+                        <!-- redirecting to the homepage index.html-->
+                        <a href="index.html">
+                            <img src="img/icon-group.png" alt="">
+                        </a>
+                    </div>
+                </div>
+                
+                <div class="col-10 nav-content" style="position: relative;">
+                    <!-- nav bar includes Home tag and group tag-->
+                    <ul class="nav nav-tabs" id="myTab" role="tablist">
+                        <!-- Home tag -->
+                        <li class="nav-item" role="presentation">
+                            <a href="index.html" class="nav-link ">Home</a>
+                          </li>
+                          <!-- Group tag -->
+                          <li class="nav-item" role="presentation">
+                            <a href="#" class="nav-link active">Group</a>
+                          </li>
+                    </ul>
+                    
+                    <!-- New function adding to the nav bar -->
+                     <div class="search">
+                        <div class="col-auto search-form">
+                            <input type="text" id="searchkey" class="form-control" placeholder="Search meeting minutes...">
+                            <button onclick="Group_search()"   class="btn btn-primary">
+                                <img src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAEAAAABACAYAAACqaXHeAAAABmJLR0QA/wD/AP+gvaeTAAAFJUlEQVR4nO2aa4hVVRTH13FGM4NpytEaE4WUYIaUohrD6UEwmCVBMJB+6CFmRFaCEBE9yPBBSAWFH8KKwfrYh7QZikKtaEjHR2lTVg5jDoUzSJmZWXN15teHfS6uu+fee+49s/e5OZ4/DLPYe5/1/691zt5n3b2PSIoUKVKkSHHBInDtEKgWketFZL6INIjITBGpEZEJInJCRI6JyCER2SMinUEQnHStoSIA5gAbgWOUjgzQDrQC4yodQywADUAHMFxG4PnQAyxJWn/sKRA+6qtF5GkRGW9194jINhHZG9onRWRYRKaJyBUiMltEbheRZhGpsq7dISIPBUHwa1xt3gFMATqtOzgItAE3luHnSuAZoN/y9RvQ4jOG2ABmAD9Zgj8GZo/C5yRgbbgm6IQudql91AjvvA4+AzwJBNa48UAL8BqwFdgVPjGNEf6bgD7l/wywyG9UJQKoth77U8BCa8wlwAvAHyPXOADeLIHnKuA7i6do4hJB+IjqO28HfydwtEDg2bvZWiJXPXBYXdsNTPQTWWmCGsmdnyut/sfDADV6gVeBe4F5wOQyOa8FTit/z7mNqjwxHUrIJ6g5D6ywAu8D7sdBYYNZX7I4BUwdrc84IuZwrsjJANeovhbrzn9W7p2O4K4CDij/a1z5LkfERiVgs2qfCBxRfV8AEzzw36c4BgC7cPIHzMqva/sm1feUaj8KTPGkoYrcxTW5Agm4SRH3qvYA+EX1Lfes4w3FtcGl76iFar6ytyv7ZhGZHtoDItLmUlQebFP2LS4dRyWgQdkHlL1A2R8EQTDkTlJe7Fd2Q8FRMRCVgJnKHlC2rvt3uZNTEAMiQmjXApe6chyVgBpl9ytbJ+awKzGFEARBRkSOq6bEEqBfOYPK7gr/HxGRfa7EROBfZVcnwghsV6vv3ao9AK4Daopd71DHOHJLcWcVYVQm9byvzxpBECC5C5Nv1Mm5XaeMiPzuynHUFDik7FmuSGNAc//s8q0TlYDdyr7NFWkM3KrsPYmxAjVq7p0FpiVGnqtjp5r/DydN3q7In83Tvx7zU3WdJ/5Gcn+N1vngKSagVSWgH5hk9f8V9nk54QE2K/4tPjiiBFRhDi2yWGP1rwuTsNYD9w3AkOJuds1RqpAlSkQGmJcA50XAN4q3wzdnlCBdFPW6LEYK8L2j+E6jdqIqAmA65sQmi3043P6yuNaTi8d88JQNzB7goBJ2EHBWIIWP/VtW8L73GsoDsJjcjdA/gaVYp0Mx/M4NnyqNdsA+eK08gEWYd7/GV8Bd5SYCmAVsYuS5QhvmiG0usAVY5SueWMAUKN2MRA/m1XgHcFme6y7GHHo8AezAVJga/6DmPPCp6nsFaAZWhX9Ntv9Egdkafx74O08idEB9mPXiRJFxAB9hrfbAyxHXfIjDHaJYAKZizg4HIsTmQwbziOfd7MQUYu9F+OiqeBKU2BZgA2ZNOJ5H7CDwI/AusIwSXqWhzyzOYLbJ3yb3s5wuoDaJOMsC5hflDOBqoI4YJzvAiyrQ11X7o+dFEkYLYLUKcpPVN/aTACxUAZ4FHrD6x3YSMJuiO60kPGiNGfNJqAd+UAEOAUutMXYSOvFwYl0xYD6r+95KwjJrjJ2ElYX8nZfA1BzdVhKWW2NeUv2fV0qrN2A+19tvJeER1a/rhoOV1OoNwGTgaxXoMOZ12QLsVu1bK63VG4DLgb0Uxz2V1ukVQC3wZYHgnX5N8r8FZt9gBWbf8lvgfWBB9JUpUqRIkSLFBY3/AJfp3xrlJLXAAAAAAElFTkSuQmCC"/>
+                            </button>
+                        </div>
+                    </div>
+
+                    <!-- Personal Tag -->
+                    <div class="personal">
+                        <!-- Redirecting to login.html-->
+                        <a href="login.html" class="" id="loginSignUp" >Login Sign up</a>
+                        <!-- Redirecting to personal.html-->
+                        <a href="personal.html" class="" id="personal">member</a>
+                        &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                        <a href="#" class="" id="signOut">Sign out</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </nav>
+    <div class="group-bj" style="opacity: 0.5;"></div>
+    <div class="container video-content group-item">
+        <h4 class="group-title h1">Group</h4>
+        <p class="group-text">User communication record.</p>
+        <!-- This is the adding group bar -->
+        <div style="margin-left: 20%;margin-right: 20%" >
+            <div class="input-group input-group-sm">
+                <input id="inputgropuname" type="text" class="form-control"  placeholder="enter the names of the meeting" />
+                    <span class="input-group-btn">
+                        <!-- Press the button to adding a new group -->
+                        <button id="btnadd" class="btn btn-primary">add new group</button>
+                    </span>
+            </div>
+        </div>
+ 
+        <!-- This is an empty div -->
+        <!-- This is to show group information -->
+        <div class="row video-list" style="padding: 20px;">
+            <!-- This is to test the structure of the group component-->
+            <!-- <div class="col-auto video-item" onclick="getmeetinginfo(`Test Structure`)">
+                <div class="row">
+                    <div class="col-2 video-name">
+                        
+                    </div>
+                    <div class="col-8 video-date" style="text-align: center;">
+                        <img src="img/icon.png" style="width: 90px;height: 90px;" alt="">
+                    </div>
+                    <div class="col-2 video-download">
+                        
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-12 video-date" style="text-align: center;font-size: 14px;color: #6b6b6b;">
+                        `Test Structure`
+                    </div>
+                </div>
+            </div> -->
+        </div>
+    </div>
+
+</body>
+<script>
+    let info = API.getUserInfo();
+    $(function() {
+        // This is adding block to check whether the user is login or not
+        if (info == null) window.location = "login.html";
+
+        API.personal();
+
+        let signOut_tag = "#signOut"
+        $(signOut_tag).click(function (){
+            // Checking the data 
+            // alert(info)
+            // alert(info.LOGINSESSION)
+            // alert(info.LOGINSESSION.id)
+            API.get("logout/",{id: info.LOGINSESSION.id},function (data){
+                msg_data = data.msg
+                alert(msg_data);
+                // redirecting to the login page if the current user logout
+                window.location = "login.html";
+            });
+            // clear the current user info in the browser
+            API.clearUserInfo();
+        });
+
+        // Using the initList to show the group structure
+        let user_info = API.getUserInfo();
+        let user_id = user_info.userinfo.userid
+        API.get("getgroupinfo/?user_id="+ user_id,"",function (data){
+            let group_datas = data.group_infos
+            // retriving the information of the groups using the html to combine with the data
+            initList(group_datas);
+        });
+
+        // checking the group name
+        let btn_addGroup_tag = "#btnadd";
+        $(btn_addGroup_tag).click(function(){
+            // Notice here using global variable
+            let group_nameInput_obj = $('#inputgropuname');
+            var code = group_nameInput_obj.val();
+            console.log("--");
+            let group_user_id = info.userinfo.userid
+            API.get("addgroup/?gropuname="+code+"&description="+code+"&originator="+group_user_id,"",function (data){
+                msg_data =data.msg
+                // to Avoid the same group name used in the project
+            if (msg_data != "The group name already exists. Modify the group name again")  {
+                // reload the current pages to show the new groups
+                //source: https://www.w3schools.com/jsref/met_loc_reload.asp
+                window.location.reload();
+            }else {
+                alert(msg_data);
+                //window.location.reload();
+            }
+            });
+        });
+    });
+
+
+    function getmeetinginfo(id) {
+        API.saveSession("meetingid",id);
+        let str_meeting_id = JSON.stringify({id:id})
+        API.savegroupin(str_meeting_id)
+        // redirecting the page to meeting.html
+        window.location = "meeting.html";
+    }
+
+    function Group_search(){
+        let searchkey_tag = '#searchkey';
+        let video_list_tag = '.video-list';
+        let searchkey_OBJ = $(searchkey_tag)
+        let searchKey_value = searchkey_OBJ.val()
+        if(searchKey_value=='')
+            return;
+        x=$(video_list_tag)
+        // Check the data
+        // alter($(video_list_tag))
+        // alter($(video_list_tag)[0])
+        y=x[0]
+        // How to use children to visit the following tags
+        // Source: https://api.jquery.com/children/
+        // Source: https://api.jquery.com/show/
+        for(let i=0;i<y.children.length;i++){
+            let current_element = y.children[i];
+            $(current_element).show();
+            //alert(y.children[i])
+            //alert(y.children[i].children[1])
+            //alert(y.children[i].children[1].children[0])
+            //alert(y.children[i].children[1].children[0].getInnerHTML())
+            //alert(y.children[i].children[1].children[0].getInnerHTML().indexOf(s))
+            let HTML_element = current_element.children[1].children[0].getInnerHTML()
+            if(HTML_element.indexOf(s)<0){
+                console.log(HTML_element)
+                $(current_element).hide()
+            }
+        }
+    }
+
+    function initList(data) {
+        let LIST_HTML = "";
+        let video_list_tag = ".video-list";
+        for (let i = 0;i < data.length;i++) {
+            let groudid_data = data[i].id;
+            let groupname_data = data[i].name;
+            LIST_HTML += `
+                <div class="col-auto video-item" onclick="getmeetinginfo(`+groudid_data+`)">
+                <div class="row">
+                    <div class="col-2 video-name">
+                        
+                    </div>
+                    <div class="col-8 video-date" style="text-align: center;">
+                        <img src="img/icon.png" style="width: 90px;height: 90px;" alt="">
+                    </div>
+                    <div class="col-2 video-download">
+                        
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-12 video-date" style="text-align: center;font-size: 14px;color: #6b6b6b;">
+                        `+ groupname_data +`
+                    </div>
+                </div>
+            </div>
+            `;
+        }
+        $(video_list_tag).append(LIST_HTML);
+    }
+</script>
+</html>
