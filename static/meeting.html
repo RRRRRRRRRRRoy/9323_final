@@ -1,0 +1,415 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <!--Usage of Bootstrap 5-->
+    <!--Source: https://getbootstrap.com/docs/5.0/getting-started/introduction/-->
+    <!--Usage of jquery-->
+    <!--Source: https://api.jquery.com/-->
+    <!--Example: https://www.codegrepper.com/code-examples/javascript/jquery+3.3.1+document+ready-->
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Online Session</title>
+    <link href="bootstrap-5.0.2-dist/css/bootstrap.min.css" rel="stylesheet" >
+    <link href="bootstrap-5.0.2-dist/css/bootstrap-grid.css" rel="stylesheet" >
+    <link rel="stylesheet" href="css/online_session.css"></link>
+    <script src="js/jquery.min.js"></script>
+    <script src="bootstrap-5.0.2-dist/js/bootstrap.min.js"></script>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.5.0/font/bootstrap-icons.css">
+    <script src="js/API.js"></script>
+    </head>
+    <body>
+    
+    <!-- Setting the icond with the href -->
+    <div class="icon-logo" style="width: 60px;height: 60px;">
+        <!-- redirect to the index pages -->
+        <a href="index.html">
+            <img src="img/icon.png" alt="" style="width: 60px;height: 60px;">
+        </a>
+    </div>
+
+    <!-- The Title of the current pages-->
+    <h4 class="title fs-3">Meeting Detail</h4>
+    <div class="container theme">
+        <div class="row">
+            <div class="col-2">
+                <div class="add fl">
+                    <div class="">
+                        <!-- Adding a + sign to add people -->
+                        <a class="btn btn-primary icons8-plus" data-bs-toggle="modal" data-bs-target="#staticBackdrop"></a>
+                        <div class="modal fade" id="staticBackdrop" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
+                            <div class="modal-dialog">
+                                <div class="modal-content">
+                                    <div class="modal-header">
+                                        <!-- The title of the adding teammates pages -->
+                                        <h5 class="modal-title" id="staticBackdropLabel">add members</h5>
+                                        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close" onclick="closeModal()"></button>
+                                    </div>
+                                    <div class="modal-body userinfo" style="max-height: 600px;overflow-y: auto;">
+                                    </div>
+                                    <!-- Button in the adding members page-->
+                                    <div class="modal-footer">
+                                        <!-- Close button -->
+                                        <button type="button" class="btn btn-secondary close-bnt" data-bs-dismiss="modal" onclick="closeModal()">Close</button>
+                                        <!-- Confirm button -->
+                                        <button type="button" class="btn btn-primary" onclick="addMember()">Confirm</button>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="online fl">
+                   
+                </div>
+                <div style="clear: both;">
+                
+                </div>
+            </div>
+            <div class="col-2 member-list">
+                <div class="row item">
+                    <div class="col-12 member me">
+                        <div class="head-img">
+                            <img src="img/icon.png" alt="">
+                        </div>
+                        <div class="info">
+                            <span>
+                                
+                            </span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <!-- This is the main part of meeting pages-->
+            <div class="col-8">
+            <div class="col-sm-4">
+                <div class="input-group">
+                    <!-- Start time -->
+                    <span class="input-group-addon" style="padding: 10px">StartTime</span>
+                    <br>
+                    <!-- NOTICE HERE THIS 2 INPUT PICK THE DATE OF TIME-->
+                    <a class='input-group date' id='datetimepicker3'>
+                        <input type='text' style="width:250px"  class="form-control" name="starttime" id="starttime"  />
+                        <span class="input-group-addon">
+                            <span class="glyphicon glyphicon-calendar"></span>
+                        </span>
+                    </a>
+                    <br>
+                    <!-- ENd time -->
+                    <span class="input-group-addon"></span>
+                    <span class="input-group-addon" style="padding: 10px">EndTime</span>
+                    <br>
+                    <!-- NOTICE HERE THIS 2 INPUT PICK THE DATE OF TIME-->
+                    <a class='input-group date' id='datetimepicker4'>
+                        <input  style="width:250px"  type='text' class="form-control" name="endtime" id="endtime"  />
+                        <span class="input-group-addon">
+                            <span class="glyphicon glyphicon-calendar"></span>
+                        </span>
+                    </a>           
+                </div>
+            </div>
+            <!-- Current description of the pages-->
+            <div class="form-group">
+                <label for="name"  style="padding: 10px" >Description</label>
+                <textarea id="name"  name="name" class="form-control" rows="3"></textarea>
+            </div>
+            <div>
+                <br>
+                <!-- Submitting the meeting information -->
+                <button id="btadd" onclick="updateMeetingInfo()" class="btn btn-primary">submit</button>  
+                <br>
+                <br>
+            </div>
+            <div>
+                <!-- This is an instruction for you to uploading files -->
+                Please select files about for meeting.
+                <br><br>
+            </div>
+            <!--  -->
+            <form action=" http://127.0.0.1:5000/upload" enctype='multipart/form-data' method='POST'>
+                <div class="input-group input-group-sm">
+                    <input class="form-control" type="file" aria-describedby="inputGroupFileAddon04" aria-label="Upload" name="file" id=""/>
+                    <input type="hidden"  id="gid" name="gid" value="100"  />
+                        <span class="input-group-btn">
+                            <input value="upload" type="submit" id="btadd" class="btn btn-primary" />
+                        </span>
+                </div>
+            </form>
+
+            <div class="row video-list">
+            </div>
+            <div class="row " style="padding: 10px" id="btnmp42text_p">
+                <button class="btn btn-primary" onclick="btnmp42text()">click here to  transcript all mp4 to text</button>
+            </div>
+        </div>
+    </div>
+</body>
+<script>
+    
+    let groupid = API.getgroupin();
+    let gid=groupid.id
+    //alert(groupid)
+    console.log(groupid)
+
+    function Downloadfile(url){
+
+        let link_href = "http://127.0.0.1:5000/get_file2?filename="+ url+'&gid='+gid;
+        window.location.href = link_href;
+
+    }
+
+    $(function (){
+        
+        $('#gid').val(gid)
+        
+        // Gid is null info != null ----> create a new group 
+        if (groupid != null && info == null) {
+            $(".me .info span").text(groupid.originator);
+            getgroupspeople();
+            getuser();
+            initMeetingInfo()
+        } else {
+            // Enter the information of the group. Prompt to get info in the front-end
+            // SOurce: https://www.w3schools.com/jsref/met_win_prompt.asp
+            let code = prompt("Please enter the group：");
+            if(code != null || code != ""){
+                let usr_info_uid = info.userinfo.userid
+                API.get("addgroup/?gropuname="+code+"&description="+code+"&originator="+usr_info_uid,"",function (data){
+                    msg_data = data.msg;
+                    // alert(data.msg);
+                    if (msg_data != "The group name already exists. Modify the group name again")  {
+                        
+                        let string_data_group_info = JSON.stringify(data.groupinfo);
+                        let usr_info_name = info.userinfo.name;
+                        API.savegroupin(string_data_group_info);
+                        groupid = data.groupinfo;
+                        // Source: https://api.jquery.com/text/
+                        $(".me .info span").text(usr_info_name);
+                        getuser();
+                    }else {
+                        alert(msg_data);
+                        // reload pages
+                        // Source: https://www.w3schools.com/jsref/met_loc_reload.asp
+                        window.location.reload();
+                    }
+                });
+            }else{
+                // redirect to index ---> homepage
+                window.location.href="index.html";
+            }
+        }
+            API.get("filelist?"+"gid="+gid,"",function (data){
+            let msg_data = data.msg;
+            console.log(data);
+            initList(msg_data);
+        });
+    });
+    
+    function getgroupspeople() {
+        API.get("getgroupspeople/?group_id="+groupid.id,"",function (data){
+            let status_data = data.status
+            if (status_data){
+                let MEMBER_HTML = "";
+                let num_ppl = data.groupspeople.length
+                for (let index = 0; index < num_ppl; index++) {
+                    let ith_group = data.groupspeople[index];
+                    var x = ith_group.group_id;
+                    var y = ith_group.user_id;
+                    // when creating a member adding delete button
+                    var xxx="<span style='padding-left:10px;color:blue'   onclick='deleteone(xx,yy)'>delete</span>"
+                    // replaceAll IN js
+                    // SOURCE: https://developer.mozilla.org/zh-CN/docs/Web/JavaScript/Reference/Global_Objects/String/replaceAll
+                    xxx= xxx.replaceAll("xx",y)
+                    xxx=xxx.replaceAll("yy",x)
+                    MEMBER_HTML += editHtml(data.groupspeople[index].name,xxx);
+                }
+                $(".item").append(MEMBER_HTML);
+            }
+        })
+    }
+
+    // REMOVE CHECKED infor of the tag
+    function closeModal(){
+        let label_member_checked = 'input:radio[name="member"]:checked';
+        let members = $(label_member_checked);
+        let mmb_num =  members.length;
+        for (let i = 0;i < mmb_num;i++) {
+            $(members[i]).removeAttr("checked")
+        }
+    }
+
+    function getuser(){
+        API.get("getuser/","",function (data) {
+            let info = data.users;
+            let USER_HTML = "";
+            let status_data = data.status;
+            let info_len = info.length;
+            if (status_data) {
+                for (let index = 0; index < info_len; index++) {
+                    let ith_info = info[index];
+                    let user_name = ith_info.name;
+                    let user_id = ith_info.id;
+                    USER_HTML += `
+                                <div class="form-check">
+                                    <input class="form-check-input" type="radio" name="member" value="`+user_id+`" id="Check`+user_name+`" >
+                                    <label class="form-check-label" for="Check`+user_name+`">
+                                        <div class="col-12 member">
+                                            <div class="head-img">
+                                                <img src="img/icon.png" alt="">
+                                            </div>
+                                            <div class="info">
+                                                <span>
+                                                    `+user_name+`
+                                                </span>       
+                                            </div>
+                                        </div>
+                                    </label>
+                                </div>`;
+                }
+                $(".userinfo").append(USER_HTML);
+            }
+        });
+    }
+
+    function addMember() {
+        let MEMBER_HTML = "";
+        let str_radio_check_obj = $("input[type='radio']:checked").val();
+        let group_id = groupid.id;
+        API.get("addgroupspeople/?user_id="+str_radio_check_obj+"&group_id="+group_id+"&role=Ordinary member","",function (data) {
+            let status_data = data.status;
+            let msg_data = data.msg;
+            if (status_data) {
+                $(".other").remove();
+                getgroupspeople();
+            }
+            alert(msg_data);
+        });
+        $(".close-bnt").click();
+    }
+
+    function deleteone(x,y) {
+        let MEMBER_HTML = "";
+        API.get("deletegroupspeople/?user_id="+x+"&group_id="+groupid.id,"",function (data) {
+            $(".other").remove();
+            getgroupspeople();   
+        });
+    }
+
+
+    function editHtml(obj,bt) {
+        return `
+            <div class="col-12 member other">
+                <div class="head-img">
+                    <img src="img/icon.png" alt="">
+                </div>
+                <div class="info">
+                    <span>
+                        `+ obj +`
+                    </span>
+                      `+ bt +`
+                </div>
+            </div>`;
+    }
+
+    $(":checkbox").click(function(){
+        $(this).attr("checked",true);
+        // gettting element in matched set
+        // source: https://api.jquery.com/siblings/
+        $(this).siblings().attr("checked",false);
+    });
+
+
+    // Adding downloading and playing buttons for the list
+    function initList(data) {
+        let LIST_HTML = "";
+        let data_len = data.length;
+        for (let i = 0;i < data_len;i++) {
+            let ith_data =data[i];
+            //alert(ith_data);
+            //alert(ith_data.split('.'));
+            //alert(ith_data.split('.')[1]);
+            var xxx=ith_data.split('.')[1]=='mp4'?'<button onclick="toplay(dddd)" class="btn btn-primary">Play</button>':''
+            var dddd="'uploads/"+gid+'/'+ith_data+"'"
+            xxx=xxx.replaceAll('dddd',dddd)
+            var sss='Downloadfile(aaaa'+ith_data+'aaaa)'
+            sss=sss.replaceAll('aaaa',"'")
+            var yyy=' <button style="margin-right:5px" onclick="' +sss+'" class="btn btn-primary">Download</button>' 
+            LIST_HTML += `
+               <br>
+                <div class="row" style="padding:15px">
+                    <div class="col-5 video-name">
+                        `+ ith_data.split('.')[0] +`
+                    </div>
+                    <div class="col-5 video-date">
+                        `+ith_data.split('.')[1] +`
+                    </div>
+                    <div class="col-2  btn-group video-download">
+                    `+yyy+xxx+`
+                    </div>
+                </div>
+                <br>`;
+           // console.log(LIST_HTML)
+        }
+        $(".video-list").append(LIST_HTML);
+    }
+
+    function toplay(url) {
+        //redirecting to the player.html which is based on H5
+        let play_link = "http://127.0.0.1:5000/player.html?"+url;
+        window.location.href = play_link;
+    }
+
+    // initialize the meeting information
+    function initMeetingInfo(){
+        let group_id = groupid.id
+        API.get("getmeet2?gid="+group_id,"",function (data) {
+            let status_data = data.status;
+            let msg_data = data.msg;
+            if (status_data) {
+            // alert(msg_data)
+            // alert(status_data)
+            // setting each value for each tag
+            // Getting each objects
+            let start_time_tag = "#starttime";
+            let end_time_tag = "#endtime";
+            let name_tag = "#name";
+            // Setting each default value for obj
+            $(start_time_obj).val(msg_data.starttime);
+            $(end_time_obj).val(msg_data.endtime);
+            $(name_obj).val(msg_data.name);
+            }
+        });
+    }
+
+    // updating the meeting information in the meeting pages
+    function updateMeetingInfo(){
+        var starttime=$("#starttime").val()
+        var endtime=$("#endtime").val()
+        var name=$("#name").val()
+        let groud_id = group.id;
+        API.get("updatemeet2?gid="+groud_id,{starttime:starttime,endtime:endtime,name:name},function (data) {
+            let status_data = data.status;
+            let msg_data = data.msg;
+            if (status_data) {
+              alert(msg_data)
+            }
+        });
+    }
+
+    // This is to do the transcription
+    function btnmp42text(){
+        let groud_id = groupid.id;
+        $("#btnmp42text_p").html('the request is submitted, please refresh after several minutes!')
+            API.get("mp42text?gid="+groud_id,"",function (data) {
+            let status_data = data.status;
+            let msg_data = data.msg;
+            if (status_data) {
+              //alert(msg_data)
+              // refresh current page with the transcription finished
+              // refresh can find the srt file in the dir
+              window.location.reload();
+            }
+        });
+    }
+</script>
+</html>

@@ -1,0 +1,83 @@
+html,body{
+    height: 100%;
+}
+.search-nav {
+    height: 61px;
+    border-bottom: 1px #e4e4e4 solid;
+}
+.nav-tabs .nav-link {
+    margin-bottom: 0px;
+}
+.search-nav .nav-content{
+    height: 60px;
+}
+.search-nav .icon-logo {
+    font-size: 0;
+}
+.search-nav .icon-logo img {
+    width: 60px;
+}
+.nav-content {
+    position: relative;
+}
+.nav-content .nav-tabs{
+    position: absolute;
+    bottom: 0;
+    border-bottom: none;
+
+}
+.personal{
+    position: absolute;
+    bottom: 5px;
+    right: 0;
+    max-width: 300px;
+    height: 40px;
+    line-height: 40px;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+}
+.content {
+    height: calc(100% - 61px);
+}
+.personal-content {
+    padding-top: 60px;
+    height: calc(100% - 61px);
+}
+.personal-bj {
+    position: absolute;
+    top: 61px;
+    width: 100%;
+    height: calc(100% - 61px);
+    background: url(../img/img-home3.jpg);
+    z-index: -9;
+    background-size: 100% 100%;
+    background-repeat: no-repeat;
+    -moz-transform: scaleX(-1);
+    -o-transform: scaleX(-1);
+    -webkit-transform: scaleX(-1);
+    transform: scaleX(-1);
+}
+.personal-content .setting-info,.personal-content .information{
+    padding: 20px 20px 20px 20px;
+    margin-right: 10px;
+    box-shadow: 0 1px 8px rgb(0 0 0 / 14%);
+    border-radius: 10px;
+    background: #ffff;
+}
+.col-form-label{
+    text-align: right;
+    width: 80px;
+}
+.card-body {
+    min-height: 250px;
+}
+
+.personal a{
+    font-size: 14px;
+    color: #3B3B3B;
+    text-decoration: none;
+}
+.personal a:hover{
+    text-decoration: underline;
+}

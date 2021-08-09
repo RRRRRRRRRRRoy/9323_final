@@ -1,0 +1,268 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <!--Usage of Bootstrap 5-->
+    <!--Source: https://getbootstrap.com/docs/5.0/getting-started/introduction/-->
+    <!--Usage of jquery-->
+    <!--Source: https://api.jquery.com/-->
+    <!--Example: https://www.codegrepper.com/code-examples/javascript/jquery+3.3.1+document+ready-->
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>personal</title>
+    <link href="bootstrap-5.0.2-dist/css/bootstrap.min.css" rel="stylesheet" >
+    <link href="bootstrap-5.0.2-dist/css/bootstrap-grid.css" rel="stylesheet" >
+    <link href="css/personal.css" rel="stylesheet" ></link>
+    <script src="js/jquery.min.js"></script>
+    <script src="bootstrap-5.0.2-dist/js/bootstrap.min.js"></script>
+    <script src="js/API.js"></script>
+</head>
+<body>
+    <!-- This part is similar to index nav bar -->
+    <!-- Setting up the href with the link-->
+    <nav class="search-nav">
+        <div class="container nav-content">
+            <div class="row">
+                <div class="col-2">
+                    <div class="icon-logo">
+                        <!-- if click back to home page -->
+                        <a href="index.html">
+                            <img src="img/icon.png" alt="">
+                        </a>
+                    </div>
+                </div>
+
+                <div class="col-10 nav-content">
+                    <ul class="nav nav-tabs" id="myTab" role="tablist">
+                        <!-- Same as the previous nav bar Home tag -->
+                        <li class="nav-item" role="presentation">
+                            <a href="index.html" class="nav-link ">Home</a>
+                          </li>
+                          <!-- Same as the previous nav bar Group tag -->
+                          <li class="nav-item" role="presentation">
+                            <a href="group.html" class="nav-link">Group</a>
+                          </li>
+                          <!-- Same as the previous nav bar Personal tag -->
+                          <li class="nav-item" role="presentation">
+                            <a href="personal.html" class="nav-link active">Personal</a>
+                          </li>
+                    </ul>
+                    <div class="personal">
+                        <!-- Redirect to login pages if userinfo is null-->
+                        <a href="login.html" class="" id="loginSignUp" >Login Sign up</a>
+                        <a href="personal.html" class="" id="personal">member</a>
+                        <!-- Adding spaces to seperate -->
+                        &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                        <a href="#" class="" id="signOut">Sign out</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </nav>
+
+    <!-- This part is retriving data from server -->
+    <!-- Using align-items-center to centerlize the model-->
+    <!-- Source: https://getbootstrap.com/docs/4.0/utilities/flex/ -->
+    <div class="personal-bj" style="opacity: 0.08;"></div>
+    <div class="container personal-content">
+        <div class="row">
+            <div class="col-6 information">
+                <div class="col-12">
+                    <h6 class="title fs-3" style="font-size: 18px!important;height: 46px;text-align: left;border-bottom: 0px #e4e4e4 solid;margin: 0;padding: 15px 0 0px 2px;">Personal</h6>
+                </div>
+                <div class="card">
+                    <div class="card-header">
+                        Currentinformation
+                    </div>
+                    <div class="card-body">
+                        <!-- Username information-->
+                        <div class="row align-items-center">
+                            <div class="col-2">
+                                <label class="col-form-label">username</label>
+                            </div>
+                            <div class="col-10">
+                                <input type="text" name="username" style="width: 80%;background: #FFFFFF;border: none;" disabled>
+                            </div>
+                        </div>
+                        <!-- Email information-->
+                        <div class="row align-items-center">
+                            <div class="col-2">
+                                <label class="col-form-label">email</label>
+                            </div>
+                            <div class="col-10">
+                                <input type="email" name="email" style="width: 80%;background: #FFFFFF;border: none;" disabled>
+                            </div>
+                        </div>
+                        <!-- gender information-->
+                        <div class="row align-items-center">
+                            <div class="col-2">
+                                <label class="col-form-label">gender</label>
+                            </div>
+                            <div class="col-10">
+                                <input type="text" name="gender" style="width: 80%;background: #FFFFFF;border: none;" disabled>
+                            </div>
+                        </div>
+                        <!-- register time information-->
+                        <div class="row align-items-center">
+                            <div class="col-2">
+                                <label class="col-form-label">regi time</label>
+                            </div>
+                            <div class="col-10">
+                                <input type="text" name="dob" style="width: 80%;background: #FFFFFF;border: none;" disabled>
+                            </div>
+                        </div>
+                        <!-- address information-->
+                        <div class="row align-items-center">
+                            <div class="col-2">
+                                <label class="col-form-label">address</label>
+                            </div>
+                            <div class="col-10">
+                                <input type="text" name="address" style="width: 80%;background: #FFFFFF;border: none;" disabled>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <!-- <div class="col-1"></div> -->
+            <div class="col-5 setting-info">
+            
+            <!-- Changing pwd and address information -->
+            <div class="col-12">
+                <h6 class="title fs-3" style="font-size: 18px!important;height: 46px;text-align: left;border-bottom: 0px #e4e4e4 solid;margin: 0;padding: 15px 0 0px 2px;">Settings</h6>
+            </div>
+                <div class="card">
+                    <div class="card-header">
+                        modified information
+                    </div>
+                    <div class="card-body">
+                        <form action="#" name="modifyinfo" method="GET">
+                            <!-- Changing new Username-->
+                            <div class="input-group mb-3">
+                                <span class="input-group-text">Username</span>
+                                <input type="text" name="username" class="form-control" placeholder="Enter new username">
+                            </div>
+                            <!-- Changing new Password-->
+                            <div class="input-group mb-3">
+                                <span class="input-group-text">Password</span>
+                                <input type="password" name="password" class="form-control" placeholder="Enter new password" required>
+                            </div>
+                            <!-- Changing new Address-->
+                            <div class="input-group mb-3">
+                                <span class="input-group-text">Address</span>
+                                <input type="text" name="address" class="form-control" placeholder="Enter new address">
+                                
+                                <input type="hidden" name="userid" >
+                                <input type="hidden" name="dob" >
+                                <input type="hidden" name="gender" >
+                            </div>
+                            <!-- Submitting New information -->
+                            <div class="mb-3">
+                                <button type="submit" style="width: 100%;" class="btn btn-primary">Submit</button>
+                            </div>
+                        </form>
+                    </div>
+            </div>
+        </div>
+    </div>
+</body>
+<script>
+    let info = API.getUserInfo();
+    $(function (){
+        // if current user is not login redirect to the login page
+        // This is a kind of block
+        if (info == null) {
+            window.location = "login.html";
+        }
+        // Using the personal to get userinfo
+        // this method contains getUserInfo()
+
+        // deal with signout
+        // redirecting to the login page and showing the msg
+        API.personal();
+        let signOut_tag = "#signOut";
+        $(signOut_tag).click(function (){
+            API.get("logout/","",function (data){
+                msg_data = data.msg;
+                alert(msg_data);
+                window.location = "login.html";
+            });
+            // clean the buffer in the browser
+            API.clearUserInfo();
+        });
+        if (info != null) {
+            // These 2 functions are based on the API.js
+            // API.JS is a implemented package of JQuery
+            // obtaining data from the db
+            getting_information();
+            // changing the data in the db
+            modifying_information();
+        }
+    })
+    // Geting data from the backend
+    // for each form in the previous
+    // assigning the data to each of them
+    function getting_information (){
+        // testing and printing the current data
+        // alert(info)
+        // alert(info.userinfo)
+        // alert(info.userinfo.name)
+        
+        // Using the ajax to retriving data from server
+        // getting username
+        let username_tag = "input[name='username']"
+        let userinfo_name = info.userinfo.name
+        $(username_tag).val(userinfo_name);
+
+        // getting email
+        let email_tag = "input[name='email']"
+        let userinfo_email = info.userinfo.emial
+        $(email_tag).val(userinfo_email);
+
+        // getting gender
+        let gender_tag = "input[name='gender']"
+        let userinfo_gender = info.userinfo.gender
+        $(gender_tag).val(userinfo_gender);
+
+        // getting birthday
+        let regi_tag = "input[name='dob']"
+        let userinfo_regitime = info.userinfo.dob
+        $(regi_tag).val(userinfo_regitime);
+        
+        // getting address
+        let address_tag = "input[name='address']"
+        let userinfo_address = info.userinfo.address
+        $(address_tag).val(userinfo_address);
+
+        // getting userid
+        let userid_tag = "input[name='userid']"
+        let userinfo_email = info.userinfo.userid
+        $(userid_tag).val(userinfo_email);
+    }
+    // Changing Username PWD and address
+    function modifying_information (){
+        // getting the tag id 
+        modifyinfo_tag = 'form[name=modifyinfo]'
+        // getting the object
+        let modifyinfo_object = $(modifyinfo_tag);
+        modifyinfo_object.submit(() => {
+            // using serialize method to getting the text info of JQuery object
+            stringData_ModifyInfo =  modifyinfo_object.serialize()
+            // Using wrapped up API to get
+            API.get("modifyinfo/?" + stringData_ModifyInfo,"",function (data){
+                let msg_data = data.msg;
+                let status_data = data.status;
+                // if success
+                if (status_data){
+                    let alert_msg = msg_data + "，Please login again to update information!"
+                    alert(alert_msg);
+                }
+                // is fail
+                else if(! status_data) {
+                    alert("Update failed!");
+                }
+            });
+            return false;
+        });
+    }
+</script>
+</html>
