@@ -2,7 +2,7 @@
 
 ## Architecture
 
-![avatar](C:\Users\user\Desktop\presentation\Technology.png)
+![avatar](./Technology.png)
 
 ## What's New
 
