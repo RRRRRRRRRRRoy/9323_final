@@ -27,37 +27,44 @@ Windows 10
 
 ## Demo Start
 
-1. Download and install __PyCharm__
-2. Import the Project into __PyCharm __
-3. Install __MySQL server__;
-4. Remember your ***port number*** and ***password***;
-5. Create a scheme called ***meeting***;
-6. Select the scheme built and run __meeting.sql__ to build the database;
-7. Edit in __db.py__ around __row 8__:  
-   * replace your username with __'root'__
-   * replace your password with __'7788'__
-   * replace your port with __3306__. (3306 is always the default port of MySQL server)
-8. Run the script to install relative packages;
+1. Make sure __Python3.6.5__ has been installed;
+
+2. __PyCharm__ is recommended for this project;
+
+3. Import the Project into __PyCharm __;
+
+4. Install __MySQL server__, and python connector;
+
+5. Remember your ***port number*** and ***password***;
+
+6. Create a scheme called, remember the ___name___;
+
+7. Add ___port number___, ___password__ and __database name__ in ```CONFIG.py```.**Database** object;
+
+8. User ```init.py``` to build your new database by
+
+   ```shell
+   python init.py
+   ```
+
+9. You may also need to activate virtual environment;
+
+10. Run the script to install relative packages;
 
 ```shell script
 	pip install -r requirements.txt
 ```
 
-9. Register and Apply XFYUN API, click [here](https://www.xfyun.cn/services/lfasr). Then you can get ```APPID``` and ```SecreteKey``` (secrete key) for the permission of ***XFYUN*** Web API. Add these two in ```CONFIG.py```. ___XFYUN___ object.
+9. Register and Apply XFYUN API, click [here](https://www.xfyun.cn/services/lfasr). Then you can get ```APPID``` and ```SecreteKey``` (secrete key) for the permission of ***XFYUN*** Web API. Add these two in ```CONFIG.py```. ___XFYUN___ object;
 
-10. Run the program via __app.py__ in PyCharm 
+10. Run the program via __PyCharm__, or type the script in the terminal;
 
-    ​	Or type the script in the terminal;
 
 ```shell script
 	flask run
 ```
 
-11. Finally, Open the html file, __index.html__ to start the system.
-
-## Swagger Document
-
-You can go to [__here__](https://editor.swagger.io/) to open this swagger document.
+11. Finally, open http://127.0.0.1:5000/index.html in your browser.
 
 ## Directory of Project
 
@@ -97,6 +104,7 @@ You can find the directory information of the project in this part.
 ├── app.py                      			// The back-end entrance of the system
 ├── init.py									// Project Initializer
 ├── requirements.txt						// the package and version
+├── XFTranscription.png						// The workflow of Transcription
 └── Technology.png							// current Technology we used in this project
 
 ```
@@ -111,12 +119,16 @@ In addition, to make the transfer service smoother, please try your best to tran
 
 ![avatar](./XFTranscription.png)
 
-The efficiency of using XF transcription.
+The Efficiency of using XFyun to do Transcription:
 
-| Length of Audio(Minutes) | Time Of Getting Result(Minutes) |
-| :----------------------: | :-----------------------------: |
-|           X<10           |               Y<3               |
-|         10<=X<30         |             3<=Y<6              |
-|         30<=X<60         |             6<=Y<10             |
-|          60<=X           |            10<=Y<20             |
+| Audio Length (Minutes) | Time of Generating the result (Minutes) |
+| :--------------------: | :-------------------------------------: |
+|          X<10          |                   Y<3                   |
+|        10<=X<30        |                 3<=Y<6                  |
+|        30<=X<60        |                 6<=Y<10                 |
+|         60<=X          |                10<=Y<20                 |
+
+
+
+
 

@@ -1,0 +1,644 @@
+{
+  "swagger": "2.0",
+  "info": {
+    "version": "1.0.0",
+    "title": "Meeting Archiving System API",
+    "description": "The backend API for meeting archiving system."
+  },
+  "schemes": [
+    "http"
+  ],
+  "host": "127.0.0.1:5000",
+  "paths": {
+    "/login": {
+      "get": {
+        "summary": "user login",
+        "tags": [
+          "authorization"
+        ],
+        "parameters": [
+          {
+            "name": "username",
+            "type": "string",
+            "in": "formData",
+            "required": true
+          },
+          {
+            "name": "password",
+            "in": "formData",
+            "type": "string",
+            "required": true
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "login successfully",
+            "schema": {
+              "type": "array",
+              "items": {
+                "example": {
+                  "msg": "login successfully",
+                  "status": true,
+                  "token": "1alkfj1elk12jlk",
+                  "LOGINSESSION": {
+                    "id": 82190312
+                  },
+                  "userinfo": {
+                    "userid": 1,
+                    "name": "admin",
+                    "gender": "male",
+                    "email": "a@b.c",
+                    "address": "a b street c suburb d state 1000"
+                  }
+                }
+              }
+            }
+          },
+          "404": {
+            "description": "Invalid username or password",
+            "schema": {
+              "type": "array",
+              "items": {
+                "example": {
+                  "msg": "Invalid username or password",
+                  "ststus": false
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/reister": {
+      "get": {
+        "summary": "user register",
+        "tags": [
+          "authorization"
+        ],
+        "parameters": [
+          {
+            "name": "name",
+            "type": "string",
+            "in": "formData",
+            "required": true
+          },
+          {
+            "name": "password",
+            "type": "string",
+            "in": "formData",
+            "required": true
+          },
+          {
+            "name": "email",
+            "type": "string",
+            "in": "formData",
+            "required": true
+          },
+          {
+            "name": "gender",
+            "type": "string",
+            "in": "formData",
+            "required": true
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "register successfully",
+            "schema": {
+              "type": "array",
+              "items": {
+                "example": {
+                  "msg": "register successfully",
+                  "status": true
+                }
+              }
+            }
+          },
+          "404": {
+            "description": "existed username",
+            "schema": {
+              "type": "array",
+              "items": {
+                "example": {
+                  "msg": "existed username",
+                  "status": false
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/logout": {
+      "get": {
+        "summary": "user logout",
+        "tags": [
+          "authorization"
+        ],
+        "parameters": [
+          {
+            "name": "userid",
+            "type": "integer",
+            "in": "formData",
+            "required": true
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "logout successfully",
+            "schema": {
+              "type": "array",
+              "items": {
+                "example": {
+                  "msg": "logout successfully",
+                  "status": true
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/modify": {
+      "get": {
+        "summary": "change password",
+        "tags": [
+          "authorization"
+        ],
+        "parameters": [
+          {
+            "name": "userid",
+            "type": "integer",
+            "in": "formData",
+            "required": true
+          },
+          {
+            "name": "newpassword",
+            "type": "string",
+            "in": "formData",
+            "required": true
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "change password successfully",
+            "schema": {
+              "type": "array",
+              "items": {
+                "example": {
+                  "msg": "change password successfully",
+                  "status": true
+                }
+              }
+            }
+          },
+          "404": {
+            "description": "cannot modify password",
+            "schema": {
+              "type": "array",
+              "items": {
+                "example": {
+                  "msg": "cannot modify password",
+                  "status": false
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/getuser": {
+      "get": {
+        "summary": "show user info",
+        "tags": [
+          "user"
+        ],
+        "parameters": [
+          {
+            "name": "userid",
+            "type": "string",
+            "in": "formData",
+            "required": true
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "get user info",
+            "schema": {
+              "type": "array",
+              "items": {
+                "example": {
+                  "msg": "get successfully",
+                  "status": true,
+                  "info": {
+                    "name": "admin",
+                    "gender": "male",
+                    "email": "a@b.c",
+                    "address": "a b street c suburb d state 1000"
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/modifyinfo": {
+      "get": {
+        "summary": "modify user info",
+        "tags": [
+          "user"
+        ],
+        "parameters": [
+          {
+            "name": "userid",
+            "type": "integer",
+            "in": "formData",
+            "required": true
+          },
+          {
+            "name": "address",
+            "type": "string",
+            "in": "formData"
+          },
+          {
+            "name": "email",
+            "type": "string",
+            "in": "formData"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "modify successfully",
+            "schema": {
+              "type": "array",
+              "items": {
+                "example": {
+                  "msg": "modify successfully",
+                  "status": true
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/addgroup": {
+      "get": {
+        "summary": "create group",
+        "tags": [
+          "user"
+        ],
+        "parameters": [
+          {
+            "name": "userid",
+            "type": "integer",
+            "in": "formData",
+            "required": true
+          },
+          {
+            "name": "groupname",
+            "type": "string",
+            "in": "formData",
+            "required": true
+          },
+          {
+            "name": "description",
+            "type": "string",
+            "in": "formData"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "create group seccessfully",
+            "schema": {
+              "type": "array",
+              "items": {
+                "example": {
+                  "msg": "create successfully",
+                  "status": true
+                }
+              }
+            }
+          },
+          "404": {
+            "description": "existed group",
+            "schema": {
+              "type": "array",
+              "items": {
+                "example": {
+                  "msg": "existed group name",
+                  "status": false
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/modifygroups": {
+      "get": {
+        "summary": "change group infomation",
+        "tags": [
+          "group"
+        ],
+        "parameters": [
+          {
+            "name": "userid",
+            "type": "string",
+            "in": "formData",
+            "required": true
+          },
+          {
+            "name": "groupname",
+            "in": "formData",
+            "type": "string",
+            "required": true
+          },
+          {
+            "name": "description",
+            "in": "formData",
+            "type": "string"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "modify successfully",
+            "schema": {
+              "type": "array",
+              "items": {
+                "example": {
+                  "msg": "modify sucessfully",
+                  "status": true
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/addgroupspeople": {
+      "get": {
+        "summary": "add group member",
+        "tags": [
+          "group"
+        ],
+        "parameters": [
+          {
+            "name": "userid",
+            "type": "integer",
+            "required": true,
+            "in": "formData"
+          },
+          {
+            "name": "groupid",
+            "type": "integer",
+            "in": "formData",
+            "required": true
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "add successfully",
+            "schema": {
+              "type": "array",
+              "items": {
+                "example": {
+                  "msg": "add successfully",
+                  "status": true
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "member already in the group"
+          }
+        }
+      }
+    },
+    "/getgroupspeople": {
+      "get": {
+        "summary": "get all group members",
+        "tags": [
+          "group"
+        ],
+        "parameters": [
+          {
+            "name": "groupid",
+            "type": "integer",
+            "in": "formData",
+            "required": true
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "get successfully",
+            "schema": {
+              "type": "array",
+              "items": {
+                "example": {
+                  "msg": "get successfully",
+                  "status": true,
+                  "members": [
+                    "admin",
+                    "test01",
+                    "test02"
+                  ]
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/getgroupinfo": {
+      "get": {
+        "summary": "get group info",
+        "tags": [
+          "group"
+        ],
+        "parameters": [
+          {
+            "name": "groupid",
+            "type": "integer",
+            "in": "formData",
+            "required": true
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "get successfully",
+            "schema": {
+              "type": "array",
+              "items": {
+                "example": {
+                  "msg": "get successfully",
+                  "status": true,
+                  "groupinfo": {
+                    "groupname": "admin",
+                    "description": "this is a group"
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/upload": {
+      "get": {
+        "summary": "upload files to server",
+        "tags": [
+          "file"
+        ],
+        "parameters": [
+          {
+            "name": "gid",
+            "type": "integer",
+            "in": "dataForm",
+            "required": true
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "upload successfully"
+          }
+        }
+      }
+    },
+    "/filelist": {
+      "post": {
+        "summary": "get all files of a group",
+        "tags": [
+          "file"
+        ],
+        "parameters": [
+          {
+            "name": "gid",
+            "type": "integer",
+            "in": "formData",
+            "required": true
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "get filelist successfully",
+            "schemas": {
+              "type": "array",
+              "items": {
+                "example": {
+                  "msg": "get successfully",
+                  "status": true,
+                  "files": [
+                    "a.mp4",
+                    "b.txt"
+                  ]
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/getmeet2": {
+      "post": {
+        "summary": "another version for get info of groups(meetings)",
+        "tags": [
+          "group"
+        ],
+        "parameters": [
+          {
+            "name": "get",
+            "type": "integer",
+            "in": "formData",
+            "required": true
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "get successfully"
+          }
+        }
+      }
+    },
+    "/updatemeet2": {
+      "post": {
+        "summary": "another version for update meeting info",
+        "tags": [
+          "group"
+        ],
+        "parameters": [
+          {
+            "name": "gid",
+            "type": "string",
+            "in": "formData",
+            "required": true
+          },
+          {
+            "name": "starttime",
+            "type": "string",
+            "in": "formData"
+          },
+          {
+            "name": "endtime",
+            "type": "string",
+            "in": "formData"
+          }
+        ],
+        "responses": {
+          "200": {
+            "desctiption": "update successfully"
+          }
+        }
+      }
+    },
+    "/mp42text": {
+      "post": {
+        "summary": "get the transcription of videos",
+        "tags": [
+          "file"
+        ],
+        "parameters": [
+          {
+            "name": "gid",
+            "type": "string",
+            "in": "formData",
+            "required": true
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "generate successfully"
+          }
+        }
+      }
+    },
+    "/getfile_2": {
+      "get": {
+        "summary": "download files",
+        "tags": [
+          "file"
+        ],
+        "parameters": [
+          {
+            "name": "gid",
+            "type": "string",
+            "in": "formData",
+            "required": true
+          },
+          {
+            "name": "filename",
+            "type": "string",
+            "in": "formData",
+            "required": true
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "return file data"
+          }
+        }
+      }
+    }
+  }
+}
