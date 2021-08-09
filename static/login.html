@@ -1,0 +1,216 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <!--Usage of Bootstrap 5-->
+    <!--Source: https://getbootstrap.com/docs/5.0/getting-started/introduction/-->
+    <!--Usage of jquery-->
+    <!--Source: https://api.jquery.com/-->
+    <!--Example: https://www.codegrepper.com/code-examples/javascript/jquery+3.3.1+document+ready-->
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Login</title>
+    <link href="bootstrap-5.0.2-dist/css/bootstrap.min.css" rel="stylesheet" >
+    <link href="bootstrap-5.0.2-dist/css/bootstrap-grid.css" rel="stylesheet" >
+    <link rel="stylesheet" href="css/login.css"></link>
+    <script src="js/jquery.min.js"></script>
+    <script src="bootstrap-5.0.2-dist/js/bootstrap.min.js"></script>
+    <script src="js/API.js"></script>
+</head>
+<body>
+    <!--Header with icon and href-->
+    <div class="container theme" style="height: 100%">
+        <div class="row" style="height: calc(100%);">
+            <div class="col-6 login-logo">
+                <a href="index.html">
+                    <img src="img/icon-group.png" alt="">
+                </a>
+            </div>
+            <!--Tag in the login and registeration-->
+            <div class="col-6 login-form">
+                <div class="login" style="width: 75%;background: #FFFFFF;">
+                    <ul class="nav nav-tabs" id="myTab" role="tablist">
+                        <!-- the Login Tag in the Login.html window -->
+                        <!-- How to use aria-controls -->
+                        <!-- Source: https://developers.google.com/web/fundamentals/accessibility/semantics-aria -->
+                        <!-- The usage aria-selected -->
+                        <!-- Source: https://developer.mozilla.org/en-US/docs/Web/API/Element/ariaSelected -->
+                        <li class="nav-item" role="presentation">
+                            <button class="nav-link active" id="email-tab" data-bs-toggle="tab" data-bs-target="#email" type="button" role="tab" aria-controls="email" aria-selected="true">Login</button>
+                        </li>
+                        <!-- the register Tag in the Login.html window -->
+                        <li class="nav-item" role="presentation">
+                            <button class="nav-link" id="Register-tab" data-bs-toggle="tab" data-bs-target="#Register" type="button" role="tab" aria-controls="Register" aria-selected="false">Register</button>
+                        </li>
+                    </ul>
+                    <!--Login part-->
+                    <div class="tab-content" id="myTabContent">
+                        <div class="tab-pane fade show active form-email" id="email" role="tabpanel" aria-labelledby="email-tab">
+                            <form action="" name="login">
+                                <!-- Username necessary which is required -->
+                                <div class="mb-3">
+                                    <input type="text" class="form-control" name="username" placeholder="Enter Username" required>
+                                </div>
+                                <!-- Password necessary which is required -->
+                                <div class="mb-3 p">
+                                    <input type="password" class="form-control input-p" name="password" placeholder="Enter password" required>
+                                    <img src="img/eye.jpg" onclick="showing_pwd(this)" alt="" srcset="">
+                                </div>
+                                <!-- Setting error msg showing places-->
+                                <!-- This is for the JS to show the error message in Login -->
+                                <div id="error_msg1" class="mb-3">
+                                </div>
+                                <div class="mb-3">
+                                    <!-- width 100% is the most beautiful one -->
+                                    <button type="submit" style="width: 100%;" class="btn btn-primary" >Submit</button>
+                                </div>
+                            </form>
+                        </div>
+                        <!--register part-->
+                        <!--How to use aria-labelledby --> 
+                        <!--Source: https://developer.mozilla.org/en-US/docs/Web/Accessibility/ARIA/ARIA_Techniques/Using_the_aria-labelledby_attribute -->
+                        <div class="tab-pane fade" id="Register" role="tabpanel" aria-labelledby="Register-tab">
+                            <div class="tab-pane fade show active form-email" id="email" role="tabpanel" aria-labelledby="email-tab">
+                                <form action="index.html" name="register">
+                                    <div class="mb-3">
+                                        <!-- required -->
+                                        <input type="text" class="form-control" aria-describedby="nameHelp" name="name" placeholder="Username" required>
+                                    </div>
+                                    <div class="mb-3">
+                                        <!-- required -->
+                                        <input type="email" class="form-control" aria-describedby="emailHelp" name="email" placeholder="E-mail Address" required>
+                                    </div>
+                                    <div class="mb-3">
+                                        <!-- required -->
+                                        <input type="password" class="form-control password" name="password" placeholder="Password" required>
+                                    </div>
+                                    <div class="mb-3">
+                                        <!-- required -->
+                                        <input type="password" class="form-control confirmpassword" name="confirmpassword" placeholder="Confirm Password" required>
+                                    </div>
+                                    <div class="mb-3" style="height: 30px;">
+                                        <div class="form-check">
+                                            <!-- Simgle selection & required selection -->
+                                            <!-- Male -->
+                                            <input class="form-check-input" type="radio" name="gender" id="RadioGender1" value="male" required>
+                                            <label class="form-check-label" for="RadioGender1">
+                                                Male
+                                            </label>
+                                        </div>
+                                        <div class="form-check">
+                                            <!-- Simgle selection & required selection -->
+                                            <!-- Female -->
+                                            <input class="form-check-input" type="radio" name="gender" id="RadioGender2" value="female" required>
+                                            <label class="form-check-label" for="RadioGender2">
+                                                Female
+                                            </label>
+                                        </div>
+                                    </div>
+                                    <!-- Setting error msg showing places-->
+                                    <!-- This is for the JS to show the error message in checking same pwd-->
+                                    <div id="error_msg2" class="mb-3">
+                                    </div>
+                                    <div class="mb-3">
+                                        <!-- width 100% is the most beautiful one -->
+                                        <button type="submit" style="width: 100%;" class="btn btn-primary">Submit</button>
+                                    </div>
+                                </form>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</body>
+<script>
+    $(function (){
+
+        // Getting the information of the form
+        let login_info = 'form[name=login]';
+        let register_info = 'form[name=register]';
+        
+        // Using JQuery to access the object
+        let register_obj = $(register_info);
+        let login_obj = $(login_info);
+
+        // login_obj submit
+        login_obj.submit(() => {
+            // Using JQuery serialize to set the URl string text
+            // SOurce: https://www.runoob.com/jquery/ajax-serialize.html
+            // Source: https://api.jquery.com/serialize/
+            let string_login = login_obj.serialize();
+            API.get("login/?"+ string_login ,"",function (data) {
+                // This is to check the msg 
+                // alert(data.msg);
+                // getting the msg
+                let msg_data = data.msg;
+                // getting the status
+                let status_data = data.status;
+                // Conver a JS object to json for submission
+                // SOurce: https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/JSON/stringify
+                string_user_data = JSON.stringify(data);
+                $('#error1').html(msg_data);
+                if (status_data) {
+                    // Save the current info into the session storage
+                    API.saveUserInfo(string_user_data);
+                    window.location = "index.html";
+                }
+            });
+            return false;
+        });
+
+        // register_obj submit
+        register_obj.submit(() => {
+            
+            // Getting the information of the form
+            let pwd_info = 'form[name=register] .password';
+            let confirm_pwd_info = 'form[name=register] .confirmpassword';
+
+            // Using JQuery to access the object
+            let cfpwd_obj = $(confirm_pwd_info);
+            let pwd_obj = $(pwd_info);
+
+            // Using val to check similarity
+            // Source: https://api.jquery.com/val/
+            if (cfpwd_obj.val() != pwd_obj.val()) {
+                // alert("The two passwords are inconsistent!");
+                // Source: https://api.jquery.com/html/
+                // Source: https://www.runoob.com/jquery/html-html.html
+                $('#error2').html("The two passwords are inconsistent!");
+            }else {
+                    // Using JQuery serialize to set the URl string text
+                    // SOurce: https://www.runoob.com/jquery/ajax-serialize.html
+                    // Source: https://api.jquery.com/serialize/
+                    let string_register = register_obj.serialize();
+                    API.get("register/?"+ string_register,"",function (data){
+                    // getting the msg
+                    let msg_data = data.msg;
+                    // getting the status
+                    let status_data = data.status;
+                    alert(msg_data);
+                    if (status_data) {
+                        window.location.reload();
+                    }
+                });
+            }
+            return false;
+        });
+    });
+
+        let flag = true;
+        function showing_pwd(object) {
+        // debugger
+        let pwd_class = ".input-p"
+        if (!flag) {
+            $(object).attr('src',"img/show.jpg");
+            $(pwd_class).attr('type',"password");
+            flag = !flag;
+        }else {
+            $(object).attr('src',"img/hide.jpg");
+            $(pwd_class).attr('type',"text");
+            flag = !flag;
+        }
+    }
+</script>
+</html>

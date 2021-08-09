@@ -1,0 +1,159 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <!--Usage of Bootstrap 5-->
+    <!--Source: https://getbootstrap.com/docs/5.0/getting-started/introduction/-->
+    <!--Usage of jquery-->
+    <!--Source: https://api.jquery.com/-->
+    <!--Example: https://www.codegrepper.com/code-examples/javascript/jquery+3.3.1+document+ready-->
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>index</title>
+    <link href="bootstrap-5.0.2-dist/css/bootstrap.min.css" rel="stylesheet" >
+    <link href="bootstrap-5.0.2-dist/css/bootstrap-grid.css" rel="stylesheet" >
+    <link href="css/index.css" rel="stylesheet" ></link>
+    <script src="js/jquery.min.js"></script>
+    <script src="bootstrap-5.0.2-dist/js/bootstrap.min.js"></script>
+    <script src="js/API.js"></script>
+</head>
+<body>
+    <!--This part is for the nav bar -->
+    <!--Press the icon and back to the home page-->
+    <nav class="search-nav">
+        <div class="container nav-content">
+            <div class="row">
+                <div class="col-2">
+                    <div class="icon-logo">
+                        <a href="index.html">
+                            <img src="img/icon.png" alt="">
+                        </a>
+                    </div>
+                </div>
+                <!-- There are 2 list in the nav bar : home and group-->
+                <div class="col-10 nav-content">
+                    <ul class="nav nav-tabs" id="myTab" role="tablist">
+                        <li class="nav-item" role="presentation">
+                            <a href="index.html" class="nav-link active">Home</a>
+                          </li>
+
+                          <li class="nav-item" role="presentation">
+                            <a href="group.html" class="nav-link">Group</a>
+                          </li>
+                    </ul>
+                    <!-- When click just to the login pages-->
+                    <div class="personal">
+                        <a href="login.html" class="" id="loginSignUp" >Login / Sign up</a>
+                        <a href="personal.html" class="" id="personal">member</a>
+                        <!--Adding some space to seperate-->
+                        &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                        <a href="#" class="" id="signOut">Sign out</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </nav>
+    <!--the title of the project-->
+    <div class="h">
+        <p class="h1" style="margin-top: 60px;">
+            Meeting Bulter
+        </p>
+        <p class="text">
+            A Voice Recording and Archive Website
+        </p>
+    </div>
+    <div class="content" >
+        <!--this part is to implement the picture change in the home page-->
+        <div class="picture" style="width: 1320px;margin: 0 auto;">
+            <div  class="carousel slide">
+                <!--The first window changes-->
+                <!-- !!!! id is window-one !!!! -->
+                <div class="carousel-item active" id="window-one">
+                    
+                    <div class="img-text ">
+                        <strong>
+                            Interaction in milliseconds
+                        </strong>
+                        <p>
+                            Voice Recording and Archive.
+                        </p>
+                    </div>
+                    <img src="img/img-home.jpg">
+                </div>
+                <!--The second window changes-->
+                <!-- !!!! id is window-two !!!! -->
+                <div class="carousel-item" id="window-two">
+                    <div class="img-text" style="left: 740px;color: #535353;">
+                        <strong>
+                            Timely communication
+                        </strong>
+                        <p>
+                            interactive live broadcast.
+                        </p>
+                    </div>
+                    <img src="img/img-home3.jpg">
+                </div>
+                <!--The third window changes still need implementation-->
+                <div class="carousel-item" id="window-three">
+                    <div class="img-text" style="left: 740px;color: #535353;">
+                        <strong>
+                            Best archive system
+                        </strong>
+                        <p>
+                            Sharing material with teammates
+                        </p>
+                    </div>
+                    <img src="img/img-home3.jpg">
+                </div>
+              </div>
+        </div>
+    </div>
+</body>
+
+<script>
+    // getting the user information from the backend
+    let info = API.getUserInfo();
+    $(function (){
+        API.personal();
+        $("#signOut").click(function (){
+            //Getting the user id from the info
+            let user_id = info.LOGINSESSION.id
+            API.get("logout/",{id: user_id},function (data){
+                // showing the message that the pages has logout
+                showing_msg = data.msg;
+                alert(showing_msg);
+                // back to the homepage which is index.html
+                window.location = "login.html";
+            });
+            // clean the user information by using the SessionStorage.clear()
+            API.clearUserInfo();
+        });
+        
+        // This part of code is to implement the images change in the homepage
+        // using window 1 to operate window-one
+        let window1 = $("#window-one");
+        // using window 2 to operate window-two
+        let window2 = $("#window-two");
+        // This flag is check whether should we change the images
+        let checking_flag = true;
+        setInterval(function () {
+            // How to user attr to control the window
+            // Source: https://developer.mozilla.org/en-US/docs/Web/API/Attr
+            // Example: https://www.codegrepper.com/code-examples/javascript/.attr+in+javascript
+
+            // This is to show the first image img-home.jpg
+            if (checking_flag) {
+                checking_flag = false;
+                window1.attr("class","carousel-item");
+                window2.attr("class","carousel-item active");
+            
+            // This is to show the second image img-home6.jfif
+            } else {
+                checking_flag = true;
+                window2.attr("class","carousel-item");
+                window1.attr("class","carousel-item active");
+            }
+        }, 2000);
+    })
+</script>
+</html>
